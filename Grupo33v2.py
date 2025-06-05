@@ -103,40 +103,52 @@
 # FUNCIÓN consultar_gasto_fecha
 #     LLAMAR a ingreso_fecha y guardar en variables
 #     DEFINIR variable encontrado como FALSO
+#     DEFINIR variable total como float con valor 0
 #     POR cada gasto en lista de gastos
 #             SI el día, mes y año coinciden
 #                 ASIGNAR VERDADERO a variable encontrado
 #                 MOSTRAR gasto
+#                 SUMAR a total
+#     MOSTRAR total
 #     SI encontrado es igual a FALSO
 #         MOSTRAR mensaje de falta de datos para esa fecha
 #
 # FUNCIÓN consultar_gasto_mes
 #     LLAMAR a ingreso_mes y guardar en variable
 #     DEFINIR encontrado como FALSO
+#     DEFINIR variable total como float con valor 0
 #     POR cada gasto en lista de gastos
 #         SI el mes ingresado coincide
 #             ASIGNAR VERDADERO a encontrado
 #             MOSTRAR gasto
+#             SUMAR a total
+#     MOSTRAR total
 #     SI encontrado es igual a FALSO
 #         MOSTRAR "No se encontraron gastos para ese mes."
 #
 # FUNCIÓN consultar_gasto_anio
 #     LLAMAR a ingreso_anio y guardar en variable
 #     DEFINIR encontrado como FALSO
+#     DEFINIR variable total como float con valor 0
 #     POR cada gasto en lista de gastos
 #         SI año ingresado coincide
 #             ASIGNAR VERDADERO a encontrado
 #             MOSTRAR gasto
+#             SUMAR a total
+#     MOSTRAR total
 #     SI encontrado es igual a FALSO
 #         MOSTRAR "No se encontraron gastos para ese año."
 #
 # FUNCIÓN consultar_gasto_categoria
 #     LLAMAR a ingreso_categoria y guardar en variable
 #     DEFINIR encontrado como FALSO
+#     DEFINIR variable total como float con valor 0
 #     POR cada gasto en gastos_lista
 #         SI categoría ingresada coincide
 #             ASIGNAR VERDADERO a encontrado
 #             MOSTRAR gasto
+#             SUMAR a total
+#     MOSTRAR total
 #     SI encontrado es igual a FALSO
 #         MOSTRAR mensaje de no encontrado
 #
@@ -268,7 +280,7 @@ def correccion(datos_ingresados):
         mostrar mensaje de error
     '''
     while True:
-        print(f"Los datos ingresados son: {datos_ingresados}")
+        print(datos_ingresados)
         sel_correcta = input("Esto es correcto? S/N ").strip().lower()
         if sel_correcta == "s":
             return True
@@ -354,7 +366,7 @@ def ingreso_anio():
         mostrar mensaje de error
     '''
     while True:
-        anio = input("Ingrese el año (ej.: 2022): ").strip()
+        anio = input("Ingrese el año (entre 1901 y 2025): ").strip()
         if anio.isdigit() and 1900 < int(anio) <= 2025:
             if correccion(f"El año ingresado es: {anio}"):
                 print()
@@ -453,16 +465,20 @@ def consultar_gasto_fecha():
     '''
     llamar a la función de ingreso de fecha, almacenando en 3 variables correspondientes a dia, mes, año
     declarar booleano "encontrado" como falso
+    declarar variable total como float = 0
     por cada gasto en lista de gastos:
         si día, mes y año coinciden con lo ingresado:
             "encontrado" pasa a verdadero
             mostrar el gasto con los datos formateados
             mostrar línea de separación entre gastos
+            sumar a variable total
+    mostrar total
     si "encontrado" sigue como falso:
         mostrar mensaje de gasto no encontrado
     '''
     dia, mes, anio = ingreso_fecha()
     encontrado = False
+    total = 0.0
     for gasto in gastos_lista:
         if (gasto["Día"] == dia and
                 gasto["Mes"] == mes and
@@ -470,33 +486,43 @@ def consultar_gasto_fecha():
             encontrado = True
             print(f"Monto: ${gasto['Monto']}, Categoría: {gasto['Categoría']}, "
                   f"Descripción: {gasto['Descripción']}, "
-                  f"Fecha: {gasto['Día']:02}/{gasto['Mes']:02}/{gasto['Año']}\n")
+                  f"Fecha: {gasto['Día']:02}/{gasto['Mes']:02}/{gasto['Año']}")
             print("--------------------------------------------------------------------------------------")
+            total += gasto['Monto']
+    print(f"El gasto total del día es: ${total:.2f}")
     if not encontrado:
         print("No se encontraron gastos para esa fecha.\n")
 
 # Consultar gasto por mes
 def consultar_gasto_mes():
     '''
+        llamar a la función ingreso de año, almacenando en una variable
         llamar a la función de ingreso de mes, almacenando en una variable
         declarar booleano "encontrado" como falso
+        declarar variable total como float = 0
         por cada gasto en lista de gastos:
-            si mes coincide con lo ingresado:
+            si año y mes coincide con lo ingresado:
                 "encontrado" pasa a verdadero
                 mostrar el gasto con los datos formateados
                 mostrar línea de separación entre gastos
+                sumar a variable total
+        mostrar total
         si "encontrado" sigue como falso:
             mostrar mensaje de gasto no encontrado
         '''
+    anio = ingreso_anio()
     mes = ingreso_mes()
     encontrado = False
+    total = 0.0
     for gasto in gastos_lista:
-        if gasto["Mes"] == mes:
+        if gasto["Año"] == anio and gasto["Mes"] == mes:
             encontrado = True
             print(f"Monto: ${gasto['Monto']}, Categoría: {gasto['Categoría']}, "
                   f"Descripción: {gasto['Descripción']}, "
-                  f"Fecha: {gasto['Día']:02}/{gasto['Mes']:02}/{gasto['Año']}\n")
+                  f"Fecha: {gasto['Día']:02}/{gasto['Mes']:02}/{gasto['Año']}")
             print("--------------------------------------------------------------------------------------")
+            total += gasto['Monto']
+    print(f"El gasto total del mes es: ${total:.2f}")
     if not encontrado:
         print("No se encontraron gastos para ese mes.\n")
 
@@ -505,23 +531,29 @@ def consultar_gasto_anio():
     '''
             llamar a la función de ingreso de año, almacenando en una variable
             declarar booleano "encontrado" como falso
+            declarar variable total como float = 0
             por cada gasto en lista de gastos:
                 si año coincide con lo ingresado:
                     "encontrado" pasa a verdadero
                     mostrar el gasto con los datos formateados
                     mostrar línea de separación entre gastos
+                    sumar a variable total
+            mostrar total
             si "encontrado" sigue como falso:
                 mostrar mensaje de gasto no encontrado
             '''
     anio = ingreso_anio()
     encontrado = False
+    total = 0.0
     for gasto in gastos_lista:
         if gasto["Año"] == anio:
             encontrado = True
             print(f"Monto: ${gasto['Monto']}, Categoría: {gasto['Categoría']}, "
                   f"Descripción: {gasto['Descripción']}, "
-                  f"Fecha: {gasto['Día']:02}/{gasto['Mes']:02}/{gasto['Año']}\n")
+                  f"Fecha: {gasto['Día']:02}/{gasto['Mes']:02}/{gasto['Año']}")
             print("--------------------------------------------------------------------------------------")
+            total += gasto['Monto']
+    print(f"El gasto total del día es: ${total:.2f}")
     if not encontrado:
         print("No se encontraron gastos para ese año.\n")
 
@@ -530,23 +562,29 @@ def consultar_gasto_categoria():
     '''
             llamar a la función de ingreso de categoría, almacenando en una variable
             declarar booleano "encontrado" como falso
+            declarar variable total como float = 0
             por cada gasto en lista de gastos:
                 si categoría coincide con lo ingresado:
                     "encontrado" pasa a verdadero
                     mostrar el gasto con los datos formateados
                     mostrar línea de separación entre gastos
+                    sumar a variable total
+            mostrar total
             si "encontrado" sigue como falso:
                 mostrar mensaje de gasto no encontrado
             '''
     categoria = ingreso_categoria()
     encontrado = False
+    total = 0.0
     for gasto in gastos_lista:
         if gasto["Categoría"] == categoria:
             encontrado = True
             print(f"Monto: ${gasto['Monto']}, Categoría: {gasto['Categoría']}, "
                   f"Descripción: {gasto['Descripción']}, "
-                  f"Fecha: {gasto['Día']:02}/{gasto['Mes']:02}/{gasto['Año']}\n")
+                  f"Fecha: {gasto['Día']:02}/{gasto['Mes']:02}/{gasto['Año']}")
             print("--------------------------------------------------------------------------------------")
+            total += gasto['Monto']
+    print(f"El gasto total del día es: ${total:.2f}")
     if not encontrado:
         print("No se encontraron gastos para esa categoría.\n")
 
@@ -560,8 +598,8 @@ def mostrar_total():
     '''
     total = sum(gasto["Monto"] for gasto in gastos_lista)
     print(f"Hay {len(gastos_lista)} gastos registrados")
-    print(f"El total de gastos es de : ${total}")
-    print("El gasto promedio es de : $", total / len(gastos_lista),"\n")
+    print(f"El total de gastos es de : ${total:.2f}")
+    print(f"El gasto promedio es de : ${(total / len(gastos_lista)):.2f}\n")
 
 # Muestra toda la lista de gastos, formateada
 def mostrar_lista_completa():
@@ -616,8 +654,11 @@ def eliminar_gasto(gastos_lista):
                 return
             elif 1 <= seleccion <= len(gastos_lista):
                 gasto_a_eliminar = gastos_lista[seleccion - 1]
-                if correccion(f"¿Está seguro de eliminar este gasto? {gasto_a_eliminar}"):
-                    gastos_lista.pop(seleccion - 1)
+                print(f"{seleccion - 1}. Monto: ${gasto_a_eliminar['Monto']}, Categoría: {gasto_a_eliminar['Categoría']}, "
+                      f"Descripción: {gasto_a_eliminar['Descripción']}, "
+                      f"Fecha: {gasto_a_eliminar['Día']:02d}/{gasto_a_eliminar['Mes']:02d}/{gasto_a_eliminar['Año']}")
+                if correccion(f"¿Está seguro de eliminar este gasto?"):
+                    gastos_lista.pop(seleccion)
                     print("Gasto eliminado.\n")
                     return
                 else:
