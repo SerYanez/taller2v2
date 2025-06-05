@@ -680,3 +680,17 @@ while True:
         case 4:
             print(f"Gracias por usar REVI, {nombre_usuario}. ¡Hasta la próxima!")
             break
+
+#################################################################################################
+# POSIBLES MEJORAS:
+#
+# - Editar gastos ya cargados
+# - Separación de las funciones y pseudocódigo en archivos distintos
+# - Generar tests unitarios para cada función
+# - Implementación de librería datetime para simplificar validación de día, mes, año
+# - Implementación de base de datos para guardar los registros
+# - Implementación de login de usuarios con la base de datos
+# - Visualización de datos en gráficos
+# - Implementación de alertas o recordatorios
+# - Implementación de interfaz gráfica
+# - Control de versiones con git (ya lo vengo haciendo)
