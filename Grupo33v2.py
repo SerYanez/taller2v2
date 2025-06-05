@@ -489,7 +489,7 @@ def consultar_gasto_fecha():
                   f"Fecha: {gasto['Día']:02}/{gasto['Mes']:02}/{gasto['Año']}")
             print("--------------------------------------------------------------------------------------")
             total += gasto['Monto']
-    print(f"El gasto total del día es: ${total:.2f}")
+    print(f"El gasto total del día es: ${total:.2f}\n")
     if not encontrado:
         print("No se encontraron gastos para esa fecha.\n")
 
@@ -522,7 +522,7 @@ def consultar_gasto_mes():
                   f"Fecha: {gasto['Día']:02}/{gasto['Mes']:02}/{gasto['Año']}")
             print("--------------------------------------------------------------------------------------")
             total += gasto['Monto']
-    print(f"El gasto total del mes es: ${total:.2f}")
+    print(f"El gasto total del mes es: ${total:.2f}\n")
     if not encontrado:
         print("No se encontraron gastos para ese mes.\n")
 
@@ -553,7 +553,7 @@ def consultar_gasto_anio():
                   f"Fecha: {gasto['Día']:02}/{gasto['Mes']:02}/{gasto['Año']}")
             print("--------------------------------------------------------------------------------------")
             total += gasto['Monto']
-    print(f"El gasto total del día es: ${total:.2f}")
+    print(f"El gasto total del día es: ${total:.2f}\n")
     if not encontrado:
         print("No se encontraron gastos para ese año.\n")
 
@@ -584,7 +584,7 @@ def consultar_gasto_categoria():
                   f"Fecha: {gasto['Día']:02}/{gasto['Mes']:02}/{gasto['Año']}")
             print("--------------------------------------------------------------------------------------")
             total += gasto['Monto']
-    print(f"El gasto total del día es: ${total:.2f}")
+    print(f"El gasto total del día es: ${total:.2f}\n")
     if not encontrado:
         print("No se encontraron gastos para esa categoría.\n")
 
